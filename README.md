@@ -1,31 +1,26 @@
-# Limit Order Book Dynamics and Multivariate Hawkes Processes in Energy Markets
+# Energy LOB Hawkes
 
-This repository contains research code and mathematical frameworks for modeling high-frequency Limit Order Book (LOB) dynamics in energy trading venues using multivariate point processes. The study focuses on order flow self-excitation, cross-queue interactions, and transient market impact.
+This repository contains code and research notes for modeling high-frequency market microstructure, specifically looking at Limit Order Books (LOB) using multivariate Hawkes processes. 
 
-## Mathematical Framework
+The main goal is to study how orders influence each other in financial and energy markets—checking things like self-excitation and cross-excitation between different tick events (such as limit orders, cancellations, and market orders).
 
-The conditional intensity process $\lambda_i(t)$ for event stream $i \in \{1, \dots, M\}$ (representing limit orders, market orders, and cancellations across sides) is defined as:
+## Mathematical Model
 
-$$\lambda_i(t) = \mu_i + \sum_{j=1}^{M} \int_0^t \alpha_{ij} e^{-\beta_{ij}(t-s)} dN_j(s)$$
+The conditional intensity vector $\lambda_i(t)$ for event type $i$ is defined as:
+
+$$\lambda_i(t \mid \mathcal{F}_t) = \mu_i + \sum_{j=1}^M \int_0^t \Phi_{ij}(t - s) \, dN_j(s)$$
 
 Where:
-* $\mu_i > 0$ denotes the baseline arrival intensity for event type $i$.
-* $\alpha_{ij} \ge 0$ quantifies the kernel magnitude (excitation impact of event $j$ on event $i$).
-* $\beta_{ij} > 0$ controls the exponential decay rate of memory.
+- $\mu_i$: Baseline arrival rate for event $i$.
+- $\mathcal{F}_t$: History of past events up to time $t$.
+- $\Phi_{ij}(\Delta t) = \alpha_{ij} e^{-\beta_{ij} \Delta t}$: Exponential decay kernel showing how past events of type $j$ affect type $i$.
 
-## Repository Layout
+## Repository Structure
 
-* `paper/`: Draft manuscripts, theoretical notes, and LaTeX source files.
-* `src/`: Python modules for LOB state reconstruction, intensity estimation, and MLE parameter calibration.
-* `notebooks/`: Empirical diagnostics, parameter estimation tests, and diagnostic plots.
-* `data/`: High-frequency LOB snapshots and order event data.
-
-## Setup & Dependencies
-
-Clone the repository and set up the execution environment:
-
-```bash
-git clone [https://github.com/marcocambi/energy-lob-hawkes.git](https://github.com/marcocambi/energy-lob-hawkes.git)
-cd energy-lob-hawkes
-python -m venv venv
-source venv/bin/activate
+```text
+energy-lob-hawkes/
+├── src/
+│   ├── cpp/       # C++ core engine for low-latency simulation
+│   └── python/    # Python scripts for data analysis and calibration
+├── data/          # Processed datasets and sample ticks
+└── tests/         # Unit tests
