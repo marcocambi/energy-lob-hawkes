@@ -18,3 +18,15 @@ class Order:
   price: float
   qty: int
   timestamp: float
+
+if __name__ == "__main__":
+  sample_order = Order(
+    order_id=1,
+    side=Side.BUY,
+    order_type=OrderType.LIMIT,
+    price=100.50,
+    qty=10,
+    timestamp=1693564800.0
+  )
+print("Ordine creato con successo:")
+print(sample_order)
