@@ -13,12 +13,12 @@ using a univariate self-exciting point process with exponential decay kernel.
 
 The conditional intensity for the event process is defined as:
 
-λ(t | F_t) = μ + Σ_{T_i < t} α e^{-β(t - T_i)}
+$$\lambda(t \mid \mathcal{F}_t) = \mu + \sum_{T_i < t} \alpha \, e^{-\beta (t - T_i)}$$
 
 Where:
-- μ: baseline arrival rate
-- F_t: history of past events up to time t
-- α, β: excitation and decay parameters, with stationarity requiring α/β < 1
+- $\mu$: baseline arrival rate
+- $\mathcal{F}_t$: history of past events up to time $t$
+- $\alpha, \beta$: excitation and decay parameters, with stationarity requiring $\alpha/\beta < 1$
 
 Estimation via recursive O(N) log-likelihood (MLE), goodness-of-fit via
 Papangelou time-rescaling (KS-test on rescaled inter-arrival times).
