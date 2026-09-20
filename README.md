@@ -8,7 +8,7 @@ The goal is temporal clustering of trade events — how one event raises the sho
 
 The conditional intensity:
 
-$$\lambda(t \mid \mathcal{F}_t) = \mu + \sum_{T_i < t} \alpha \, e^{-\beta (t - T_i)}$$
+$$\lambda(t \mid \mathcal{F}_t) = \mu + \sum_{T_i < t} \alpha \* e^{-\beta (t - T_i)}$$
 
 μ is the baseline arrival rate. F_t is the event history up to t. α and β are the excitation and decay parameters; stationarity requires α/β < 1.
 
