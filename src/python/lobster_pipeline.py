@@ -1,3 +1,4 @@
+import numpy as np
 def process_lobster_timestamps(
     file_path: str,
     session_start: float = 34200.0,
