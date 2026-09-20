@@ -1,36 +1,21 @@
 # LOB Hawkes
 
-This repository contains code and research notes for modeling high-frequency
-market microstructure using self-exciting Hawkes processes, applied in
-parallel to two domains: equity limit order books (NASDAQ/LOBSTER) and
-energy markets (EPEX Spot/ICE).
+Code and research notes for modeling high-frequency market microstructure with self-exciting Hawkes processes, applied in parallel to two domains: equity limit order books (NASDAQ/LOBSTER) and energy markets (EPEX Spot/ICE).
 
-The goal is to characterize temporal clustering of trade events — how the
-occurrence of one event increases the short-term probability of another —
-using a univariate self-exciting point process with exponential decay kernel.
+The goal is temporal clustering of trade events — how one event raises the short-term probability of another. A univariate self-exciting point process with exponential decay kernel handles that.
 
 ## Mathematical Model
 
-The conditional intensity for the event process is defined as:
+The conditional intensity:
 
 $$\lambda(t \mid \mathcal{F}_t) = \mu + \sum_{T_i < t} \alpha \, e^{-\beta (t - T_i)}$$
 
-Where:
-- $\mu$: baseline arrival rate
-- $\mathcal{F}_t$: history of past events up to time $t$
-- $\alpha, \beta$: excitation and decay parameters, with stationarity requiring $\alpha/\beta < 1$
+μ is the baseline arrival rate. F_t is the event history up to t. α and β are the excitation and decay parameters; stationarity requires α/β < 1.
 
-Estimation via recursive O(N) log-likelihood (MLE), goodness-of-fit via
-Papangelou time-rescaling (KS-test on rescaled inter-arrival times).
+Estimation runs on recursive O(N) log-likelihood (MLE). Goodness-of-fit via Papangelou time-rescaling, then a KS-test on the rescaled inter-arrival times.
 
-**Out of scope:** multivariate cross-excitation between event types
-(limit orders, cancellations, market orders), full LOB L2/L3 reconstruction,
-market impact models. These are noted as future work only, not implemented.
+Out of scope: multivariate cross-excitation between event types (limit orders, cancellations, market orders), full L2/L3 LOB reconstruction, market impact models. Noted as future work, not implemented.
 
 ## Repository Structure
 
-- `src/python/equity/` — NASDAQ/LOBSTER pipeline and estimation (Marco)
-- `src/python/energy/` — EPEX Spot/ICE pipeline and estimation (Antonio)
-- `src/python/common/` — shared MLE, GOF, and simulation code
-- `tests/` — validation on synthetic fixtures (Ogata thinning simulator)
-- `data/` — raw and processed datasets (gitignored)
+`src/python/equity/` holds the NASDAQ/LOBSTER pipeline and estimation, Marco's side. `src/python/energy/` mirrors it for EPEX Spot/ICE, Antonio's side. `src/python/common/` carries shared MLE, GOF, and simulation code. `tests/` validates against synthetic fixtures from the Ogata thinning simulator. `data/` holds raw and processed datasets, gitignored.
