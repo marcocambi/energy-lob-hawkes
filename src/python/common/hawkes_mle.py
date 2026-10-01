@@ -23,4 +23,4 @@ def hawkes_log_likelihood_recursive(params: np.ndarray, timestamps: np.ndarray, 
     return 1e10
   log_sum = np.sum(np.log(intensity_at_events))
   integral_term = mu*T_end + (alpha/beta) * np.sum(1.0 - np.exp(-beta*(T-end - timestamps)))
-return -(log_sum - integral_term)
+  return -(log_sum - integral_term)
