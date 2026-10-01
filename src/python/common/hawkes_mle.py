@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize
-from typing import import Dict, Any
+from typing import Dict, Any
 
 ## definition of hawkes_log_likelihood_recursive
 def hawkes_log_likelihood_recursive(params: np.ndarray, timestamps: np.ndarray, T_end: float) -> float:

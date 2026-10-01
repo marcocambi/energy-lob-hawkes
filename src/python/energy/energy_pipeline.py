@@ -5,6 +5,7 @@ def process_energy_timestamps(
     file_path: str,
     contract_type: str = "CO",
 ) -> np.ndarray:
+
    df = pd.read_csv(file_path)
    df = df[df["contract_type"] == contract_type]
    timestamps = df["execution_timestamp"].to_numpy()
