@@ -8,7 +8,7 @@ def load_and_filter_trades(file_path: str) -> np.ndarray:
 
     trades = df[df["event_type"] == 4]
 
-    timestamps = trades["time"].values,astype(np.float64)
+    timestamps = trades["time"].values.astype(np.float64)
 
     timestamps = np.unique(timestamps)
 
@@ -16,9 +16,16 @@ def load_and_filter_trades(file_path: str) -> np.ndarray:
 
 if __name__ == "__main__":
     import os
-    data_filename = "AAPL_2012-06-21_34200000_57600000_message_5.csv"
 
-    file_path = os.path.join()
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Puntiamo alla cartella raw/ dove risiedono i dati grezzi
+    data_dir = os.path.normpath(os.path.join(current_dir, "../../../data/raw"))
+
+    # Nome del file dei messaggi LOBSTER caricato in data/raw/
+    data_filename = "AAPL_2012-06-21_34200000_57600000_message_10.csv"
+
+    file_path = os.path.join(data_dir, data_filename)
 
     print(f"Caricamento e filtraggio dei dati da: {file_path}")
 
@@ -32,6 +39,6 @@ if __name__ == "__main__":
         print(f"Last 5 timestamps (seconds from midnight): {timestamps[-5:]}")
 
     except FileNotFoundError:
-        print(f"Errore: Il file {file_path} non è stato trovato. Verifica il nome esatto nella cartella data/.")
+        print(f"Errore: Il file {file_path} non è stato trovato. Verifica di averlo trascinato in data/raw/.")
     except Exception as e:
         print(f"Errore imprevisto durante l'esecuzione: {e}")
